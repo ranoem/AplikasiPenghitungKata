@@ -1,3 +1,9 @@
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +21,48 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
      */
     public PenghitungKataFrame() {
         initComponents();
+        
+        btnHitung.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    calculateCounts();
+                }
+            });
+
+        txtArea.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    calculateCounts();
+                }
+            
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    calculateCounts();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    // Not needed for plain text, but must be implemented
+                }
+            });
+    }   
+    
+    
+    
+        private void calculateCounts() {
+            String text = txtArea.getText();
+
+            // Count words using regular expression to match words
+            String[] words = text.trim().split("\\s+");
+            int wordCount = (text.isEmpty()) ? 0 : words.length;
+
+            // Count characters (excluding whitespace)
+            int charCount = text.replaceAll("\\s", "").length();
+
+            // Update labels
+            lblKata.setText("Word count: " + wordCount);
+            lblKarakter.setText("Character count: " + charCount);
+        
     }
 
     /**
@@ -29,7 +77,7 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtArea = new javax.swing.JTextArea();
         btnHitung = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -40,9 +88,9 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Aplikasi Penghitung Kata");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
 
         btnHitung.setText("Hitung");
 
@@ -162,8 +210,8 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblKarakter;
     private javax.swing.JLabel lblKata;
+    private javax.swing.JTextArea txtArea;
     // End of variables declaration//GEN-END:variables
 }
