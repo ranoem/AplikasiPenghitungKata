@@ -20,5 +20,5 @@ Program ini adalah aplikasi yang dapat memudahkan pengguna untuk menghitung juml
 
 ## Screenshot
 
-![App Screenshot](https://github.com/ranoem/AplikasiPenghitungKata/blob/main/img/app.gif)
+![App Screenshot]()
 
